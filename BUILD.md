@@ -33,3 +33,8 @@ The workflow uses a fresh Android scaffold and the debug signing configuration f
 Open the **Gaming DNS Android Build v5** run, not an older failed run. Download `Gaming-DNS-Build-Logs-v5` and share the log file for the first failing step. The workflow no longer references `android/settings.gradle` directly; it detects Groovy and Kotlin DSL settings files and emits a clear error if Flutter fails to generate them.
 
 For the exact repository replacement steps, see [UPLOAD-CHECKLIST.txt](UPLOAD-CHECKLIST.txt).
+
+
+## Build Fix v6
+
+The import-file picker was migrated to the file_picker 12+/13 API (`FilePicker.pickFile()` returns `PlatformFile?`). The previous `FilePicker.platform.pickFiles()` call no longer compiles with the dependency version resolved by CI.

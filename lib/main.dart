@@ -206,15 +206,20 @@ class _DnsScreenState extends State<DnsScreen> {
   }
 
   Future<void> pickAndImportFile() async {
-    final picked = await FilePicker.platform.pickFiles(
+    // file_picker 12+ returns PlatformFile directly and no longer exposes
+    // FilePicker.platform or FilePickerResult.
+    final selectedFile = await FilePicker.pickFile(
       type: FileType.custom,
       allowedExtensions: ['txt', 'csv', 'json'],
     );
-    if (picked == null || picked.files.isEmpty) return;
+    if (selectedFile == null) return;
 
-    final filePath = picked.files.single.path;
-    if (filePath == null) {
-      _showMessage('مسیر فایل قابل دسترسی نیست. فایل TXT/CSV را دوباره انتخاب کنید.', isError: true);
+    final filePath = selectedFile.path;
+    if (filePath == null || filePath.isEmpty) {
+      _showMessage(
+        'مسیر فایل قابل دسترسی نیست. فایل TXT/CSV را دوباره انتخاب کنید.',
+        isError: true,
+      );
       return;
     }
 
@@ -228,7 +233,7 @@ class _DnsScreenState extends State<DnsScreen> {
       await _reloadPage(showLoading: false);
       if (!mounted) return;
       _showMessage(
-        'از فایل ${picked.files.single.name} تعداد $added DNS جدید ذخیره شد. سقف این عملیات: $importLimit',
+        'از فایل ${selectedFile.name} تعداد $added DNS جدید ذخیره شد. سقف این عملیات: $importLimit',
       );
     } catch (error) {
       if (!mounted) return;

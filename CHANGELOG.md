@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.4+8 — file_picker 13 API compatibility
+
+- Fixed the release build error: FilePicker.platform is not available in file_picker 13.
+- Migrated file import to FilePicker.pickFile(), which returns PlatformFile? in file_picker 12+.
+- Updated selected-file handling to use the returned file directly rather than the removed FilePickerResult wrapper.
+
 ## 2.2.3+7 — reproducible Android build
 
 - Replaced the fragile Android scaffold patch workflow with a clean, pinned Flutter 3.38.10 scaffold.
