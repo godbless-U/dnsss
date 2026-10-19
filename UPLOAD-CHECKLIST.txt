@@ -1,0 +1,18 @@
+Gaming DNS — Upload checklist
+
+IMPORTANT: The previous screenshot shows GitHub still running a workflow/script that reads android/settings.gradle directly. This package uses a new workflow name and does not rely on an existing android/ directory.
+
+1) Extract Gaming-DNS-Build-Fix-v5.zip on your computer.
+2) Open your GitHub repository.
+3) Delete the old workflow file: .github/workflows/build_apk.yml
+   Also delete any other old workflow files that build this same app.
+4) Upload the CONTENTS of the extracted folder into the repository root. Do not upload the ZIP itself and do not keep an extra dns-main/ parent folder.
+5) Check that these exact paths exist at repository root:
+   .github/workflows/gaming-dns-build.yml
+   scripts/prepare_android_gradle.py
+   android_custom/AndroidManifest.xml
+   lib/main.dart
+   pubspec.yaml
+6) Commit/push to main.
+7) In Actions, open the run named "Gaming DNS Android Build v5". Do not judge the new files by an older failed run.
+8) On success download Artifact "Gaming-DNS-Release-APK-v5". On failure download "Gaming-DNS-Build-Logs-v5".
